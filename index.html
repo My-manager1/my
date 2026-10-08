@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="My Manager - Your Personal Financial Manager"
+  >
+
+  <title>My Manager | Your Personal Financial Manager</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="topbar">
+
+    <button
+      class="icon-btn menu-btn"
+      id="menuBtn"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+    <a
+      class="brand"
+      href="#"
+      data-page="home"
+    >
+
+      <img
+        src="my-manager-logo.png"
+        alt="My Manager Logo"
+      >
+
+      <div class="brand-copy">
+
+        <span class="brand-name">
+          My Manager
+        </span>
+
+        <span class="brand-tagline">
+          One App. Every Life. Every Need.
+        </span>
+
+      </div>
+
+    </a>
+
+    <button
+      class="icon-btn notification-btn"
+      aria-label="Notifications"
+    >
+      ♧
+
+      <span class="notification-dot">
+        3
+      </span>
+
+    </button>
+
+  </header>
+
+
+  <!-- ================= LAYOUT ================= -->
+
+  <div class="layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
+
+      <div class="sidebar-brand">
+
+        <img
+          src="my-manager-logo.png"
+          alt="My Manager"
+        >
+
+        <div>
+
+          <strong>
+            My Manager
+          </strong>
+
+          <small>
+            Your Personal Financial Manager
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <nav class="side-nav">
+
+        <button
+          class="side-link active"
+          data-page="home"
+        >
+          ⌂
+          <span>Home</span>
+        </button>
+
+
+        <button
+          class="side-link"
+          data-page="membership"
+        >
+          ▦
+          <span>Services</span>
+        </button>
+
+
+        <button
+          class="side-link"
+          data-page="about"
+        >
+          ◉
+          <span>My Manager</span>
+        </button>
+
+
+        <button
+          class="side-link"
+          data-page="documents"
+        >
+          ▤
+          <span>Documents</span>
+        </button>
+
+
+        <button
+          class="side-link"
+          data-page="contact"
+        >
+          ♙
+          <span>Profile</span>
+        </button>
+
+      </nav>
+
+
+      <div class="sidebar-contact">
+
+        <span class="mini-label">
+          Need assistance?
+        </span>
+
+        <a href="mailto:supportmy1manager@gmail.com">
+          supportmy1manager@gmail.com
+        </a>
+
+        <a href="tel:+919649950866">
+          +91 96499 50866
+        </a>
+
+      </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+      <!-- ================= HOME ================= -->
+
+      <section
+        class="page active"
+        id="page-home"
+      >
+
+        <div class="welcome-card">
+
+          <div>
+
+            <span class="small-eyebrow">
+              WELCOME TO
+            </span>
+
+            <h1>
+              My Manager
+            </h1>
+
+            <p>
+              Your Personal Financial Manager
+            </p>
+
+          </div>
+
+          <div class="welcome-crown">
+            ♛
+          </div>
+
+        </div>
+
+
+
+        <div class="section-heading">
+
+          <div>
+
+            <h2>
+              Choose Your Membership Plan
+            </h2>
+
+            <p>
+              Select the plan that suits you best
+            </p>
+
+          </div>
+
+          <button
+            class="text-button"
+            data-page="membership"
+          >
+            View All →
+          </button>
+
+        </div>
+
+
+
+        <!-- ================= PLAN CARDS ================= -->
+
+        <div class="plan-grid">
+
+
+          <button
+            class="plan-card elite"
+            data-plan="elite"
+          >
+
+            <span class="plan-icon">
+              ♛
+            </span>
+
+            <span class="plan-title">
+              Elite
+            </span>
+
+            <span class="plan-for">
+              For Business Owners
+            </span>
+
+            <strong>
+              ₹24,999 / Lifetime
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card professional"
+            data-plan="professional"
+          >
+
+            <span class="plan-icon">
+              ▣
+            </span>
+
+            <span class="plan-title">
+              Professional
+            </span>
+
+            <span class="plan-for">
+              For Working Professionals
+            </span>
+
+            <strong>
+              ₹6,370 / Lifetime
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card aarogya"
+            data-plan="aarogya"
+          >
+
+            <span class="plan-icon">
+              ♧
+            </span>
+
+            <span class="plan-title">
+              Aarogya
+            </span>
+
+            <span class="plan-for">
+              For Doctors
+            </span>
+
+            <strong>
+              ₹6,370 / Lifetime
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card global"
+            data-plan="global"
+          >
+
+            <span class="plan-icon">
+              ◎
+            </span>
+
+            <span class="plan-title">
+              Global
+            </span>
+
+            <span class="plan-for">
+              For NRI
+            </span>
+
+            <strong>
+              Coming Soon
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card shaurya"
+            data-plan="shaurya"
+          >
+
+            <span class="plan-icon">
+              ✦
+            </span>
+
+            <span class="plan-title">
+              Shaurya
+            </span>
+
+            <span class="plan-for">
+              For Defence Personnel
+            </span>
+
+            <strong>
+              ₹6,370 / Lifetime
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card samaj"
+            data-plan="samaj"
+          >
+
+            <span class="plan-icon">
+              ♟
+            </span>
+
+            <span class="plan-title">
+              Samaj Gaurav
+            </span>
+
+            <span class="plan-for">
+              For Senior Citizens
+            </span>
+
+            <strong>
+              Coming Soon
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card women"
+            data-plan="women"
+          >
+
+            <span class="plan-icon">
+              ◉
+            </span>
+
+            <span class="plan-title">
+              Women
+            </span>
+
+            <span class="plan-for">
+              For Women
+            </span>
+
+            <strong>
+              ₹6,370 / Lifetime
+            </strong>
+
+          </button>
+
+
+
+          <button
+            class="plan-card student"
+            data-plan="student"
+          >
+
+            <span class="plan-icon">
+              ◆
+            </span>
+
+            <span class="plan-title">
+              Student
+            </span>
+
+            <span class="plan-for">
+              For Students
+            </span>
+
+            <strong>
+              ₹99 / Lifetime
+            </strong>
+
+          </button>
+
+        </div>
+
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <div class="feature-strip">
+
+          <div>
+            <span>✓</span>
+            <b>Financial Help</b>
+            <small>Personal assistance</small>
+          </div>
+
+          <div>
+            <span>✓</span>
+            <b>Insurance Assist</b>
+            <small>Claim coordination</small>
+          </div>
+
+          <div>
+            <span>✓</span>
+            <b>Document Vault</b>
+            <small>Organized support</small>
+          </div>
+
+          <div>
+            <span>✓</span>
+            <b>Business Support</b>
+            <small>Growth assistance</small>
+          </div>
+
+        </div>
+
+
+
+        <!-- ================= BOTTOM BANNER ================= -->
+
+        <div class="info-banner">
+
+          <div>
+
+            <span>
+              ONE MEMBERSHIP — MAXIMUM VALUE
+            </span>
+
+            <p>
+              Save Time • Save Money • Reduce Stress • Grow Your Business
+            </p>
+
+          </div>
+
+          <a
+            href="https://wa.me/919649950866?text=Hello%20Jatin%20Mishra%2C%20I%20would%20like%20to%20know%20more%20about%20My%20Manager."
+            target="_blank"
+            rel="noopener"
+          >
+            Talk to My Manager →
+          </a>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= MEMBERSHIP ================= -->
+
+      <section
+        class="page"
+        id="page-membership"
+      >
+
+        <button
+          class="back-button"
+          data-page="home"
+        >
+          ← Back
+        </button>
+
+
+        <div class="page-title">
+
+          <span class="small-eyebrow">
+            MY MANAGER
+          </span>
+
+          <h1>
+            Membership Plans
+          </h1>
+
+          <p>
+            Choose the membership that fits your needs.
+          </p>
+
+        </div>
+
+
+
+        <div class="membership-list">
+
+
+          <button
+            class="membership-row"
+            data-plan="elite"
+          >
+
+            <span class="row-icon elite-icon">
+              ♛
+            </span>
+
+            <span>
+              <b>Elite</b>
+              <small>For Business Owners</small>
+              <strong>₹24,999 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="professional"
+          >
+
+            <span class="row-icon blue-icon">
+              ▣
+            </span>
+
+            <span>
+              <b>Professional</b>
+              <small>For Working Professionals</small>
+              <strong>₹6,370 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="aarogya"
+          >
+
+            <span class="row-icon green-icon">
+              ♧
+            </span>
+
+            <span>
+              <b>Aarogya</b>
+              <small>For Doctors</small>
+              <strong>₹6,370 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="global"
+          >
+
+            <span class="row-icon purple-icon">
+              ◎
+            </span>
+
+            <span>
+              <b>Global</b>
+              <small>For NRI</small>
+              <strong>Coming Soon</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="shaurya"
+          >
+
+            <span class="row-icon darkgreen-icon">
+              ✦
+            </span>
+
+            <span>
+              <b>Shaurya</b>
+              <small>For Defence Personnel</small>
+              <strong>₹6,370 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="samaj"
+          >
+
+            <span class="row-icon brown-icon">
+              ♟
+            </span>
+
+            <span>
+              <b>Samaj Gaurav</b>
+              <small>For Senior Citizens</small>
+              <strong>Coming Soon</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="women"
+          >
+
+            <span class="row-icon pink-icon">
+              ◉
+            </span>
+
+            <span>
+              <b>Women</b>
+              <small>For Women</small>
+              <strong>₹6,370 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+
+
+          <button
+            class="membership-row"
+            data-plan="student"
+          >
+
+            <span class="row-icon teal-icon">
+              ◆
+            </span>
+
+            <span>
+              <b>Student</b>
+              <small>For Students</small>
+              <strong>₹99 / Lifetime</strong>
+            </span>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= PLAN DETAILS ================= -->
+
+      <section
+        class="page"
+        id="page-details"
+      >
+
+        <button
+          class="back-button"
+          data-page="membership"
+        >
+          ← Membership Plans
+        </button>
+
+
+        <div
+          class="detail-hero"
+          id="detailHero"
+        >
+
+          <span class="popular-badge">
+            MOST POPULAR
+          </span>
+
+          <div
+            class="detail-icon"
+            id="detailIcon"
+          >
+            ♛
+          </div>
+
+          <div>
+
+            <span
+              class="small-eyebrow"
+              id="detailFor"
+            >
+              FOR BUSINESS OWNERS
+            </span>
+
+            <h1 id="detailTitle">
+              Elite
+            </h1>
+
+            <strong id="detailPrice">
+              ₹24,999 / Lifetime
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="detail-card">
+
+          <div class="section-heading compact">
+
+            <div>
+
+              <h2>
+                Services Included
+              </h2>
+
+              <p id="detailSubtitle">
+                Premium support and coordination services.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="service-grid"
+            id="serviceGrid"
+          ></div>
+
+
+          <div class="detail-actions">
+
+            <a
+              id="buyPlanBtn"
+              class="primary-btn"
+              href="#"
+              target="_blank"
+              rel="noopener"
+            >
+              Buy Plan
+            </a>
+
+            <a
+              class="secondary-btn"
+              href="mailto:supportmy1manager@gmail.com"
+            >
+              Contact Us
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= ABOUT ================= -->
+
+      <section
+        class="page"
+        id="page-about"
+      >
+
+        <button
+          class="back-button"
+          data-page="home"
+        >
+          ← Back
+        </button>
+
+
+        <div class="page-title">
+
+          <span class="small-eyebrow">
+            MY MANAGER
+          </span>
+
+          <h1>
+            About My Manager
+          </h1>
+
+          <p>
+            One platform for coordinated personal, financial and business assistance.
+          </p>
+
+        </div>
+
+
+        <div class="about-card">
+
+          <img
+            src="my-manager-logo.png"
+            alt="My Manager"
+          >
+
+          <div>
+
+            <h2>
+              Managed by Mr. Jatin Mishra
+            </h2>
+
+            <p>
+              My Manager is designed as a personal assistance and
+              service-coordination platform. Customers can explore
+              membership plans, understand included services and
+              contact the manager directly for assistance.
+            </p>
+
+
+            <div class="contact-actions">
+
+              <a href="tel:+919649950866">
+                📞 +91 96499 50866
+              </a>
+
+              <a href="mailto:supportmy1manager@gmail.com">
+                ✉ supportmy1manager@gmail.com
+              </a>
+
+              <a
+                href="https://wa.me/919649950866"
+                target="_blank"
+                rel="noopener"
+              >
+                💬 WhatsApp: +91 96499 50866
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= DOCUMENTS ================= -->
+
+      <section
+        class="page"
+        id="page-documents"
+      >
+
+        <button
+          class="back-button"
+          data-page="home"
+        >
+          ← Back
+        </button>
+
+
+        <div class="page-title">
+
+          <span class="small-eyebrow">
+            DOCUMENTS
+          </span>
+
+          <h1>
+            Document Vault
+          </h1>
+
+          <p>
+            A future-ready space for organizing your service documents.
+          </p>
+
+        </div>
+
+
+        <div class="empty-card">
+
+          <div class="empty-icon">
+            ▤
+          </div>
+
+          <h2>
+            Document Vault
+          </h2>
+
+          <p>
+            This front-end demo is ready for a secure document
+            system when a backend is connected.
+          </p>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= CONTACT ================= -->
+
+      <section
+        class="page"
+        id="page-contact"
+      >
+
+        <button
+          class="back-button"
+          data-page="home"
+        >
+          ← Back
+        </button>
+
+
+        <div class="page-title">
+
+          <span class="small-eyebrow">
+            PROFILE & SUPPORT
+          </span>
+
+          <h1>
+            Contact My Manager
+          </h1>
+
+          <p>
+            Connect directly with the My Manager team.
+          </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+          <div class="contact-logo">
+
+            <img
+              src="my-manager-logo.png"
+              alt="My Manager"
+            >
+
+          </div>
+
+
+          <h2>
+            Mr. Jatin Mishra
+          </h2>
+
+          <p>
+            Owner / Manager — My Manager
+          </p>
+
+
+          <div class="contact-list">
+
+            <a href="tel:+919649950866">
+              <span>Phone</span>
+              <b>+91 96499 50866</b>
+            </a>
+
+
+            <a href="mailto:supportmy1manager@gmail.com">
+              <span>Email</span>
+              <b>supportmy1manager@gmail.com</b>
+            </a>
+
+
+            <a
+              href="https://wa.me/919649950866"
+              target="_blank"
+              rel="noopener"
+            >
+              <span>WhatsApp</span>
+              <b>+91 96499 50866</b>
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+
+  <!-- ================= MOBILE NAVIGATION ================= -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="bottom-link active"
+      data-page="home"
+    >
+      <span>⌂</span>
+      Home
+    </button>
+
+
+    <button
+      class="bottom-link"
+      data-page="membership"
+    >
+      <span>▦</span>
+      Services
+    </button>
+
+
+    <button
+      class="bottom-link"
+      data-page="about"
+    >
+      <span>◉</span>
+      My Manager
+    </button>
+
+
+    <button
+      class="bottom-link"
+      data-page="documents"
+    >
+      <span>▤</span>
+      Documents
+    </button>
+
+
+    <button
+      class="bottom-link"
+      data-page="contact"
+    >
+      <span>♙</span>
+      Profile
+    </button>
+
+  </nav>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
