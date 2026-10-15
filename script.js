@@ -1,1690 +1,335 @@
-/* =====================================================
-   MY MANAGER
-   Main JavaScript + Supabase Authentication
-===================================================== */
 
+/* My Manager - navigation, membership plans and Supabase authentication */
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
+const SUPABASE_URL = "https://wdkgquixyujuorhhwvcp.supabase.co";
+const SUPABASE_KEY = "sb_publishable_ZvDmSbOy_FqqSblJNVyObw_shXMgJ7U";
 
-const SUPABASE_URL =
-  "https://wdkgquixyujuorhhwvcp.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_ZvDmSbOy_FqqSblJNVyObw_shXMgJ7U";
-
-
-/* =====================================================
-   LOAD SUPABASE
-===================================================== */
-
-function loadSupabase() {
-
-  return new Promise((resolve, reject) => {
-
-    if (window.supabase) {
-      resolve(window.supabase);
-      return;
-    }
-
-    const script = document.createElement("script");
-
-    script.src =
-      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-
-    script.onload = () => {
-
-      if (window.supabase) {
-        resolve(window.supabase);
-      } else {
-        reject(
-          new Error("Supabase failed to load.")
-        );
-      }
-
-    };
-
-    script.onerror = () => {
-
-      reject(
-        new Error("Could not load Supabase.")
-      );
-
-    };
-
-    document.head.appendChild(script);
-
-  });
-
-}
-
-
-/* =====================================================
-   PLAN DATA
-===================================================== */
+const supabaseClient = window.supabase?.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 const planData = {
-
   elite: {
     name: "Elite",
-    forText: "FOR BUSINESS OWNERS",
-    price: "₹24,999 / Lifetime",
+    forText: "FOR BUSINESS OWNERS, ENTREPRENEURS & FAMILIES",
+    price: "₹24,999 / 5 Years",
     icon: "♛",
     theme: "elite",
-    subtitle: "Complete business support ecosystem.",
+    subtitle: "Premium business, personal and family assistance.",
     services: [
-      "Dedicated Business Manager",
-      "Banking & Financial Assistance",
-      "Business Loan Support",
-      "Loan Settlement Assistance",
-      "Staff Salary Account Support",
-      "Investment Advisory",
-      "Tax & ITR Coordination",
+      "Business & Personal Banking Assistance",
+      "Family Financial Support",
+      "Loan Guidance & Coordination",
       "Insurance & Claim Assistance",
-      "Factory & Fire Insurance",
-      "Medical Check-up Coordination",
-      "Digital Marketing Guidance",
-      "Website & App Development",
-      "ERP / Business Software",
-      "Business Growth & Branding",
-      "Government & Bank Liaison",
-      "Representation on Your Behalf",
-      "MSME & Government Schemes",
-      "Licence & Registration Support",
-      "Notice Response & Drafting",
-      "Bank & Government Notices",
-      "Document Preparation Support",
-      "Compliance & Renewal Reminders",
-      "CA / CS / Legal Coordination",
-      "Vendor & Professional Network",
-      "Quarterly Business Review",
-      "Priority Helpline & Support",
-      "Emergency Business Support",
-      "Employee Welfare Support",
-      "Exclusive Partner Benefits"
-    ]
-  },
-
-  shaurya: {
-    name: "Shaurya",
-    forText: "FOR DEFENCE PERSONNEL",
-    price: "₹6,370 / Lifetime",
-    icon: "✦",
-    theme: "shaurya",
-    subtitle: "Dedicated support for defence personnel.",
-    services: [
-      "Lifetime Membership",
-      "Banking & Loan Assistance",
-      "Mediclaim Support",
-      "Insurance Claim Assistance",
-      "Financial Advisory",
-      "Emergency Banking Support",
-      "Priority Helpline",
-      "Document Management",
-      "Personal Assistance",
-      "Service Coordination"
+      "ITR & Tax Coordination",
+      "Document Vault & Banking Support",
+      "Dedicated Relationship Manager",
+      "Priority Support",
+      "Business Growth Guidance",
+      "Government Scheme Guidance"
     ]
   },
 
   professional: {
     name: "Professional",
-    forText: "FOR WORKING PROFESSIONALS",
-    price: "₹6,370 / Lifetime",
+    forText: "FOR WORKING PROFESSIONALS & SALARIED INDIVIDUALS",
+    price: "₹6,370 / Year",
     icon: "▣",
     theme: "professional",
-    subtitle: "Professional assistance and coordination.",
+    subtitle: "Personal financial assistance for working professionals.",
     services: [
-      "Personal Manager Support",
-      "Financial Coordination",
-      "Insurance Assistance",
-      "Document Support",
-      "Priority Helpline"
-    ]
-  },
-
-  aarogya: {
-    name: "Aarogya",
-    forText: "FOR DOCTORS",
-    price: "₹6,370 / Lifetime",
-    icon: "♧",
-    theme: "aarogya",
-    subtitle: "Dedicated assistance for doctors.",
-    services: [
-      "Personal Manager Support",
-      "Financial Coordination",
-      "Insurance Assistance",
-      "Document Support",
-      "Priority Helpline"
-    ]
-  },
-
-  global: {
-    name: "Global",
-    forText: "FOR NRI",
-    price: "Coming Soon",
-    icon: "◎",
-    theme: "global",
-    subtitle: "NRI-focused support and coordination.",
-    services: [
-      "Banking Coordination",
-      "Document Support",
-      "Insurance Assistance",
-      "Financial Guidance",
-      "Dedicated Assistance"
-    ]
-  },
-
-  samaj: {
-    name: "Samaj Gaurav",
-    forText: "FOR SENIOR CITIZENS",
-    price: "Coming Soon",
-    icon: "♟",
-    theme: "samaj",
-    subtitle: "Assistance designed for senior citizens.",
-    services: [
-      "Personal Assistance",
-      "Banking Support",
-      "Insurance Coordination",
-      "Document Management",
-      "Priority Support"
-    ]
-  },
-
-  women: {
-    name: "Women",
-    forText: "FOR WOMEN",
-    price: "₹6,370 / Lifetime",
-    icon: "◉",
-    theme: "women",
-    subtitle: "Personal and financial support services.",
-    services: [
-      "Personal Manager Support",
-      "Financial Coordination",
-      "Insurance Assistance",
-      "Document Support",
-      "Priority Helpline"
+      "Personal Banking Assistance",
+      "Loan Guidance & Coordination",
+      "Insurance & Claim Assistance",
+      "ITR & Tax Advisory",
+      "Document Vault",
+      "Banking Complaint Support",
+      "Investment Guidance",
+      "Dedicated Support"
     ]
   },
 
   student: {
     name: "Student",
     forText: "FOR STUDENTS",
-    price: "₹99 / Lifetime",
-    icon: "◆",
+    price: "₹299 / Year",
+    icon: "🎓",
     theme: "student",
-    subtitle: "Affordable support for students.",
+    subtitle: "Affordable guidance for students.",
     services: [
-      "Basic Personal Assistance",
-      "Document Support",
-      "Guidance & Coordination",
-      "Priority Helpdesk"
+      "Student Banking Assistance",
+      "Education Loan Guidance",
+      "Scholarship & Financial Guidance",
+      "Basic Insurance Awareness",
+      "Document Support (KYC etc.)",
+      "Financial Literacy & Money Management",
+      "Guidance from Experienced Professionals",
+      "Support When You Need"
     ]
   }
-
 };
 
+const pages = document.querySelectorAll(".page");
+const sidebar = document.getElementById("sidebar");
+const layout = document.querySelector(".layout");
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const pages =
-  document.querySelectorAll(".page");
-
-const navControls =
-  document.querySelectorAll("[data-page]");
-
-const planControls =
-  document.querySelectorAll("[data-plan]");
-
-const sidebar =
-  document.getElementById("sidebar");
-
-const menuBtn =
-  document.getElementById("menuBtn");
-
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
-function showPage(pageName) {
-
+function showPage(name) {
   pages.forEach(page => {
-
-    page.classList.toggle(
-      "active",
-      page.id === `page-${pageName}`
-    );
-
+    page.classList.toggle("active", page.id === `page-${name}`);
   });
 
-  document
-    .querySelectorAll(".side-link, .bottom-link")
-    .forEach(link => {
-
-      link.classList.toggle(
-        "active",
-        link.dataset.page === pageName
-      );
-
-    });
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+  document.querySelectorAll("[data-page]").forEach(control => {
+    control.classList.toggle("active", control.dataset.page === name);
   });
 
-  if (sidebar) {
-
-    sidebar.classList.remove(
-      "mobile-open"
-    );
-
-    sidebar.classList.remove(
-      "desktop-open"
-    );
-
-  }
-
+  sidebar?.classList.remove("mobile-open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+document.querySelectorAll("[data-page]").forEach(control => {
+  control.addEventListener("click", event => {
+    event.preventDefault();
 
-/* =====================================================
-   OPEN PLAN
-===================================================== */
+    if (control.dataset.page) {
+      showPage(control.dataset.page);
+    }
+  });
+});
 
-function openPlan(planKey) {
+document.getElementById("menuBtn")?.addEventListener("click", () => {
+  if (window.innerWidth <= 760) {
+    sidebar?.classList.toggle("mobile-open");
+  } else {
+    layout?.classList.toggle("sidebar-hidden");
+  }
+});
 
-  const plan = planData[planKey];
+function openPlan(key) {
+  const plan = planData[key];
 
   if (!plan) return;
 
-  const detailTitle =
-    document.getElementById("detailTitle");
+  document.getElementById("detailTitle").textContent = plan.name;
+  document.getElementById("detailFor").textContent = plan.forText;
+  document.getElementById("detailPrice").textContent = plan.price;
+  document.getElementById("detailIcon").textContent = plan.icon;
+  document.getElementById("detailSubtitle").textContent = plan.subtitle;
 
-  const detailFor =
-    document.getElementById("detailFor");
+  document.getElementById("detailHero").className =
+    `detail-hero ${plan.theme}-theme`;
 
-  const detailPrice =
-    document.getElementById("detailPrice");
+  document.getElementById("serviceGrid").innerHTML =
+    plan.services.map(service => `
+      <div class="service-item">
+        <span>✓</span>
+        <div>${service}</div>
+      </div>
+    `).join("");
 
-  const detailIcon =
-    document.getElementById("detailIcon");
+  const message = encodeURIComponent(
+    `Hello My Manager, I am interested in the ${plan.name} Plan (${plan.price}). Please share the membership procedure, payment details and next steps. Thank you.`
+  );
 
-  const detailSubtitle =
-    document.getElementById("detailSubtitle");
-
-  const detailHero =
-    document.getElementById("detailHero");
-
-  const serviceGrid =
-    document.getElementById("serviceGrid");
-
-  if (detailTitle)
-    detailTitle.textContent = plan.name;
-
-  if (detailFor)
-    detailFor.textContent = plan.forText;
-
-  if (detailPrice)
-    detailPrice.textContent = plan.price;
-
-  if (detailIcon)
-    detailIcon.textContent = plan.icon;
-
-  if (detailSubtitle)
-    detailSubtitle.textContent = plan.subtitle;
-
-  if (detailHero) {
-
-    detailHero.className =
-      "detail-hero";
-
-    detailHero.classList.add(
-      `${plan.theme}-theme`
-    );
-
-  }
-
-  if (serviceGrid) {
-
-    serviceGrid.innerHTML =
-      plan.services
-        .map(service => `
-          <div class="service-item">
-            <span>✓</span>
-            <div>${service}</div>
-          </div>
-        `)
-        .join("");
-
-  }
-
-  const message =
-    encodeURIComponent(
-
-`Hello Jatin Mishra,
-
-I am interested in the ${plan.name} Plan (${plan.price}) of My Manager.
-
-Please share the membership procedure, payment details and next steps.
-
-Thank you.`
-
-    );
-
-  const buyPlanBtn =
-    document.getElementById("buyPlanBtn");
-
-  if (buyPlanBtn) {
-
-    buyPlanBtn.href =
-      `https://wa.me/919649950866?text=${message}`;
-
-    buyPlanBtn.textContent =
-      plan.price === "Coming Soon"
-        ? "Enquire on WhatsApp"
-        : "Buy Plan";
-
-  }
+  document.getElementById("buyPlanBtn").href =
+    `https://wa.me/919649950866?text=${message}`;
 
   showPage("details");
-
 }
 
+document.querySelectorAll("[data-plan]").forEach(control => {
+  control.addEventListener("click", () => {
+    openPlan(control.dataset.plan);
+  });
+});
 
-/* =====================================================
-   MOBILE / DESKTOP MENU FIX
-===================================================== */
+/* Authentication modal */
 
-if (menuBtn && sidebar) {
+const authModal = document.getElementById("authModal");
+const authMessage = document.getElementById("authMessage");
 
-  menuBtn.type = "button";
-
-  menuBtn.addEventListener(
-    "click",
-    event => {
-
-      event.preventDefault();
-
-      event.stopPropagation();
-
-      const isMobile =
-        window.innerWidth <= 760;
-
-      if (isMobile) {
-
-        sidebar.classList.toggle(
-          "mobile-open"
-        );
-
-      } else {
-
-        sidebar.classList.toggle(
-          "desktop-open"
-        );
-
-      }
-
-    }
-  );
-
+function openAuth(tab = "login") {
+  authModal.classList.add("show");
+  authModal.setAttribute("aria-hidden", "false");
+  setAuthTab(tab);
 }
 
+function closeAuth() {
+  authModal.classList.remove("show");
+  authModal.setAttribute("aria-hidden", "true");
+  authMessage.textContent = "";
+}
 
-/* =====================================================
-   SIDEBAR LINKS
-===================================================== */
-
-document
-  .querySelectorAll(".side-link")
-  .forEach(link => {
-
-    link.addEventListener(
-      "click",
-      () => {
-
-        if (sidebar) {
-
-          sidebar.classList.remove(
-            "mobile-open"
-          );
-
-        }
-
-      }
-    );
-
+function setAuthTab(tab) {
+  document.querySelectorAll("[data-auth-tab]").forEach(button => {
+    button.classList.toggle("active", button.dataset.authTab === tab);
   });
 
-
-/* =====================================================
-   PAGE NAVIGATION EVENTS
-===================================================== */
-
-navControls.forEach(control => {
-
-  control.addEventListener(
-    "click",
-    event => {
-
-      event.preventDefault();
-
-      const pageName =
-        control.dataset.page;
-
-      if (pageName) {
-
-        showPage(pageName);
-
-      }
-
-    }
+  document.getElementById("loginForm").classList.toggle(
+    "active",
+    tab === "login"
   );
 
+  document.getElementById("signupForm").classList.toggle(
+    "active",
+    tab === "signup"
+  );
+
+  document.getElementById("authTitle").textContent =
+    tab === "login" ? "Welcome Back" : "Create Your Account";
+
+  authMessage.textContent = "";
+}
+
+document.querySelectorAll("[data-auth='login']").forEach(button => {
+  button.addEventListener("click", () => openAuth("login"));
 });
 
-
-/* =====================================================
-   PLAN EVENTS
-===================================================== */
-
-planControls.forEach(control => {
-
-  control.addEventListener(
-    "click",
-    () => {
-
-      const planKey =
-        control.dataset.plan;
-
-      if (planKey) {
-
-        openPlan(planKey);
-
-      }
-
-    }
-  );
-
+document.querySelectorAll("[data-auth-tab]").forEach(button => {
+  button.addEventListener("click", () => {
+    setAuthTab(button.dataset.authTab);
+  });
 });
 
+document.getElementById("authClose").addEventListener("click", closeAuth);
 
-/* =====================================================
-   AUTH UI CSS
-===================================================== */
+authModal.addEventListener("click", event => {
+  if (event.target === authModal) closeAuth();
+});
 
-function addAuthStyles() {
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeAuth();
+});
 
-  if (
-    document.getElementById(
-      "myManagerAuthStyles"
-    )
-  ) {
-    return;
-  }
-
-  const style =
-    document.createElement("style");
-
-  style.id =
-    "myManagerAuthStyles";
-
-  style.textContent = `
-
-    .auth-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-      margin-right: 10px;
-    }
-
-    .auth-top-btn {
-      border: 1px solid rgba(255,255,255,.35);
-      background: rgba(255,255,255,.13);
-      color: #fff;
-      border-radius: 10px;
-      padding: 9px 13px;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .auth-top-btn:hover {
-      background: rgba(255,255,255,.24);
-      transform: translateY(-1px);
-    }
-
-    .auth-top-btn.signup {
-      background: #ffffff;
-      color: #0757c8;
-      border-color: #ffffff;
-    }
-
-    .auth-user-box {
-      display: none;
-      align-items: center;
-      gap: 7px;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .auth-user-name {
-      max-width: 110px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .auth-logout {
-      border: 0;
-      background: rgba(255,255,255,.15);
-      color: white;
-      padding: 7px 9px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .auth-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 5000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(3,18,45,.62);
-      backdrop-filter: blur(7px);
-    }
-
-    .auth-modal.show {
-      display: flex;
-    }
-
-    .auth-box {
-      width: min(430px, 100%);
-      max-height: 92vh;
-      overflow-y: auto;
-      background: #fff;
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 25px 70px rgba(0,0,0,.28);
-      position: relative;
-    }
-
-    .auth-close {
-      position: absolute;
-      right: 15px;
-      top: 12px;
-      width: 34px;
-      height: 34px;
-      border: 0;
-      border-radius: 50%;
-      background: #eef4fb;
-      color: #17213a;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .auth-logo {
-      width: 62px;
-      height: 62px;
-      object-fit: contain;
-      border-radius: 14px;
-      display: block;
-      margin-bottom: 12px;
-    }
-
-    .auth-box h2 {
-      color: #17213a;
-      font-size: 24px;
-      margin-bottom: 4px;
-    }
-
-    .auth-subtitle {
-      color: #6f7789;
-      font-size: 12px;
-      margin-bottom: 18px;
-    }
-
-    .auth-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      margin-bottom: 18px;
-      background: #f0f5fb;
-      padding: 4px;
-      border-radius: 11px;
-    }
-
-    .auth-tab {
-      border: 0;
-      padding: 10px;
-      border-radius: 8px;
-      background: transparent;
-      color: #657087;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .auth-tab.active {
-      background: #fff;
-      color: #0757c8;
-      box-shadow: 0 3px 10px rgba(20,50,90,.08);
-    }
-
-    .auth-form {
-      display: none;
-    }
-
-    .auth-form.active {
-      display: block;
-    }
-
-    .auth-field {
-      margin-bottom: 11px;
-    }
-
-    .auth-field label {
-      display: block;
-      color: #38445b;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .auth-field input {
-      width: 100%;
-      height: 43px;
-      border: 1px solid #dce3ed;
-      border-radius: 9px;
-      padding: 0 12px;
-      outline: none;
-      color: #17213a;
-      background: #fbfdff;
-      font-size: 12px;
-    }
-
-    .auth-field input:focus {
-      border-color: #4b94e8;
-      box-shadow: 0 0 0 3px rgba(7,87,200,.08);
-    }
-
-    .auth-submit {
-      width: 100%;
-      height: 46px;
-      border: 0;
-      border-radius: 10px;
-      margin-top: 5px;
-      background: linear-gradient(135deg,#0757c8,#16b8dc);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(7,87,200,.20);
-    }
-
-    .auth-submit:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .auth-message {
-      min-height: 18px;
-      margin-top: 11px;
-      font-size: 11px;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .auth-message.success {
-      color: #198544;
-    }
-
-    .auth-message.error {
-      color: #d62f45;
-    }
-
-    @media (max-width: 760px) {
-
-      .topbar {
-        gap: 5px;
-      }
-
-      .auth-actions {
-        gap: 4px;
-        margin-right: 4px;
-      }
-
-      .auth-top-btn {
-        padding: 8px 8px;
-        font-size: 9px;
-      }
-
-      .auth-user-name {
-        display: none;
-      }
-
-      .auth-logout {
-        padding: 7px;
-      }
-
-    }
-
-    @media (min-width: 761px) {
-
-      .sidebar {
-        transition:
-          transform .25s ease,
-          width .25s ease;
-      }
-
-      .layout.sidebar-hidden {
-        grid-template-columns: 0 minmax(0,1fr);
-      }
-
-      .layout.sidebar-hidden .sidebar {
-        transform: translateX(-100%);
-        overflow: hidden;
-        padding-left: 0;
-        padding-right: 0;
-      }
-
-    }
-
-  `;
-
-  document.head.appendChild(style);
-
+function showAuthMessage(message, type = "") {
+  authMessage.textContent = message;
+  authMessage.className = `auth-message ${type}`;
 }
 
+function setAuthButton(user) {
+  const container = document.getElementById("authActions");
 
-/* =====================================================
-   CREATE AUTH BUTTONS
-===================================================== */
+  if (!container) return;
 
-function createAuthButtons() {
+  if (user) {
+    const label = user.user_metadata?.full_name || user.email || "Account";
 
-  const topbar =
-    document.querySelector(".topbar");
+    const name = document.createElement("span");
+    name.className = "signed-in-label";
+    name.textContent = label;
+    name.title = label;
 
-  const notification =
-    document.querySelector(".notification-btn");
+    const logoutButton = document.createElement("button");
+    logoutButton.className = "login-btn";
+    logoutButton.id = "logoutBtn";
+    logoutButton.textContent = "Logout";
 
-  if (!topbar || !notification) {
-    return;
-  }
+    container.replaceChildren(name, logoutButton);
 
-  if (
-    document.getElementById(
-      "authActions"
-    )
-  ) {
-    return;
-  }
+    logoutButton.addEventListener("click", async () => {
+      if (!supabaseClient) return;
 
-  const authActions =
-    document.createElement("div");
+      const { error } = await supabaseClient.auth.signOut();
 
-  authActions.id =
-    "authActions";
-
-  authActions.className =
-    "auth-actions";
-
-  authActions.innerHTML = `
-
-    <button
-      type="button"
-      class="auth-top-btn"
-      id="topLoginBtn"
-    >
-      Login
-    </button>
-
-    <button
-      type="button"
-      class="auth-top-btn signup"
-      id="topSignupBtn"
-    >
-      Sign Up
-    </button>
-
-    <div
-      class="auth-user-box"
-      id="authUserBox"
-    >
-
-      <span>👤</span>
-
-      <span
-        class="auth-user-name"
-        id="authUserName"
-      >
-        User
-      </span>
-
-      <button
-        type="button"
-        class="auth-logout"
-        id="logoutBtn"
-      >
-        Logout
-      </button>
-
-    </div>
-
-  `;
-
-  topbar.insertBefore(
-    authActions,
-    notification
-  );
-
-}
-
-
-/* =====================================================
-   CREATE AUTH MODAL
-===================================================== */
-
-function createAuthModal() {
-
-  if (
-    document.getElementById(
-      "authModal"
-    )
-  ) {
-    return;
-  }
-
-  const modal =
-    document.createElement("div");
-
-  modal.id =
-    "authModal";
-
-  modal.className =
-    "auth-modal";
-
-  modal.innerHTML = `
-
-    <div class="auth-box">
-
-      <button
-        type="button"
-        class="auth-close"
-        id="authCloseBtn"
-      >
-        ×
-      </button>
-
-      <img
-        src="my-manager-logo.png"
-        alt="My Manager"
-        class="auth-logo"
-      >
-
-      <h2 id="authHeading">
-        Welcome Back
-      </h2>
-
-      <p class="auth-subtitle">
-        Login or create your My Manager account.
-      </p>
-
-      <div class="auth-tabs">
-
-        <button
-          type="button"
-          class="auth-tab active"
-          id="loginTab"
-        >
-          Login
-        </button>
-
-        <button
-          type="button"
-          class="auth-tab"
-          id="signupTab"
-        >
-          Sign Up
-        </button>
-
-      </div>
-
-
-      <!-- LOGIN -->
-
-      <form
-        class="auth-form active"
-        id="loginForm"
-      >
-
-        <div class="auth-field">
-
-          <label>Email</label>
-
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="Enter your email"
-            required
-          >
-
-        </div>
-
-        <div class="auth-field">
-
-          <label>Password</label>
-
-          <input
-            type="password"
-            id="loginPassword"
-            placeholder="Enter your password"
-            required
-          >
-
-        </div>
-
-        <button
-          type="submit"
-          class="auth-submit"
-          id="loginSubmit"
-        >
-          Login
-        </button>
-
-      </form>
-
-
-      <!-- SIGN UP -->
-
-      <form
-        class="auth-form"
-        id="signupForm"
-      >
-
-        <div class="auth-field">
-
-          <label>Username</label>
-
-          <input
-            type="text"
-            id="signupUsername"
-            placeholder="Choose a username"
-            required
-          >
-
-        </div>
-
-        <div class="auth-field">
-
-          <label>Full Name</label>
-
-          <input
-            type="text"
-            id="signupFullName"
-            placeholder="Enter your full name"
-            required
-          >
-
-        </div>
-
-        <div class="auth-field">
-
-          <label>Phone</label>
-
-          <input
-            type="tel"
-            id="signupPhone"
-            placeholder="Enter your phone number"
-            required
-          >
-
-        </div>
-
-        <div class="auth-field">
-
-          <label>Email</label>
-
-          <input
-            type="email"
-            id="signupEmail"
-            placeholder="Enter your email"
-            required
-          >
-
-        </div>
-
-        <div class="auth-field">
-
-          <label>Password</label>
-
-          <input
-            type="password"
-            id="signupPassword"
-            placeholder="Minimum 6 characters"
-            minlength="6"
-            required
-          >
-
-        </div>
-
-        <button
-          type="submit"
-          class="auth-submit"
-          id="signupSubmit"
-        >
-          Create Account
-        </button>
-
-      </form>
-
-
-      <div
-        class="auth-message"
-        id="authMessage"
-      ></div>
-
-    </div>
-
-  `;
-
-  document.body.appendChild(modal);
-
-}
-
-
-/* =====================================================
-   AUTH HELPERS
-===================================================== */
-
-function openAuthModal(mode = "login") {
-
-  const modal =
-    document.getElementById(
-      "authModal"
-    );
-
-  if (!modal) return;
-
-  modal.classList.add("show");
-
-  setAuthMode(mode);
-
-  clearAuthMessage();
-
-}
-
-
-function closeAuthModal() {
-
-  const modal =
-    document.getElementById(
-      "authModal"
-    );
-
-  if (modal) {
-
-    modal.classList.remove(
-      "show"
-    );
-
-  }
-
-}
-
-
-function setAuthMode(mode) {
-
-  const loginTab =
-    document.getElementById(
-      "loginTab"
-    );
-
-  const signupTab =
-    document.getElementById(
-      "signupTab"
-    );
-
-  const loginForm =
-    document.getElementById(
-      "loginForm"
-    );
-
-  const signupForm =
-    document.getElementById(
-      "signupForm"
-    );
-
-  const heading =
-    document.getElementById(
-      "authHeading"
-    );
-
-  if (mode === "signup") {
-
-    signupTab.classList.add("active");
-    loginTab.classList.remove("active");
-
-    signupForm.classList.add("active");
-    loginForm.classList.remove("active");
-
-    heading.textContent =
-      "Create Your Account";
-
+      if (error) {
+        alert(error.message);
+      } else {
+        setAuthButton(null);
+      }
+    });
   } else {
+    container.innerHTML =
+      '<button class="login-btn" data-auth="login">Login / Sign Up</button>';
 
-    loginTab.classList.add("active");
-    signupTab.classList.remove("active");
-
-    loginForm.classList.add("active");
-    signupForm.classList.remove("active");
-
-    heading.textContent =
-      "Welcome Back";
-
+    container.querySelector("[data-auth]").addEventListener("click", () => {
+      openAuth("login");
+    });
   }
-
 }
 
+if (supabaseClient) {
+  supabaseClient.auth.getSession().then(({ data }) => {
+    setAuthButton(data.session?.user || null);
+  });
 
-function showAuthMessage(
-  message,
-  type = "error"
-) {
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  if (!box) return;
-
-  box.textContent = message;
-
-  box.className =
-    `auth-message ${type}`;
-
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    setAuthButton(session?.user || null);
+  });
+} else {
+  console.warn(
+    "Supabase did not load. Authentication is currently unavailable."
+  );
 }
 
+document.getElementById("loginForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
 
-function clearAuthMessage() {
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  if (!box) return;
-
-  box.textContent = "";
-
-  box.className =
-    "auth-message";
-
-}
-
-
-/* =====================================================
-   UPDATE AUTH UI
-===================================================== */
-
-async function updateAuthUI(
-  supabaseClient
-) {
-
-  const loginBtn =
-    document.getElementById(
-      "topLoginBtn"
-    );
-
-  const signupBtn =
-    document.getElementById(
-      "topSignupBtn"
-    );
-
-  const userBox =
-    document.getElementById(
-      "authUserBox"
-    );
-
-  const userName =
-    document.getElementById(
-      "authUserName"
-    );
-
-  const {
-    data: {
-      session
-    }
-  } =
-    await supabaseClient.auth.getSession();
-
-  if (session && session.user) {
-
-    if (loginBtn)
-      loginBtn.style.display = "none";
-
-    if (signupBtn)
-      signupBtn.style.display = "none";
-
-    if (userBox)
-      userBox.style.display = "flex";
-
-    const metadata =
-      session.user.user_metadata || {};
-
-    const name =
-      metadata.full_name ||
-      metadata.username ||
-      session.user.email ||
-      "User";
-
-    if (userName)
-      userName.textContent = name;
-
-  } else {
-
-    if (loginBtn)
-      loginBtn.style.display = "";
-
-    if (signupBtn)
-      signupBtn.style.display = "";
-
-    if (userBox)
-      userBox.style.display = "none";
-
-  }
-
-}
-
-
-/* =====================================================
-   AUTH EVENTS
-===================================================== */
-
-async function setupAuthentication() {
-
-  addAuthStyles();
-
-  createAuthButtons();
-
-  createAuthModal();
-
-  let supabaseClient;
-
-  try {
-
-    const supabaseLib =
-      await loadSupabase();
-
-    supabaseClient =
-      supabaseLib.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
+    if (!supabaseClient) {
+      return showAuthMessage(
+        "Authentication service could not load. Please refresh and try again.",
+        "error"
       );
-
-  } catch (error) {
-
-    console.error(
-      "Supabase loading error:",
-      error
-    );
-
-    return;
-
-  }
-
-
-  /* ================= BUTTONS ================= */
-
-  document
-    .getElementById("topLoginBtn")
-    ?.addEventListener(
-      "click",
-      () => openAuthModal("login")
-    );
-
-
-  document
-    .getElementById("topSignupBtn")
-    ?.addEventListener(
-      "click",
-      () => openAuthModal("signup")
-    );
-
-
-  document
-    .getElementById("authCloseBtn")
-    ?.addEventListener(
-      "click",
-      closeAuthModal
-    );
-
-
-  document
-    .getElementById("loginTab")
-    ?.addEventListener(
-      "click",
-      () => setAuthMode("login")
-    );
-
-
-  document
-    .getElementById("signupTab")
-    ?.addEventListener(
-      "click",
-      () => setAuthMode("signup")
-    );
-
-
-  document
-    .getElementById("authModal")
-    ?.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target.id ===
-          "authModal"
-        ) {
-
-          closeAuthModal();
-
-        }
-
-      }
-    );
-
-
-  /* ================= LOGIN ================= */
-
-  document
-    .getElementById("loginForm")
-    ?.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-        clearAuthMessage();
-
-        const email =
-          document.getElementById(
-            "loginEmail"
-          ).value.trim();
-
-        const password =
-          document.getElementById(
-            "loginPassword"
-          ).value;
-
-        const button =
-          document.getElementById(
-            "loginSubmit"
-          );
-
-        button.disabled = true;
-
-        button.textContent =
-          "Logging in...";
-
-
-        const {
-          error
-        } =
-          await supabaseClient.auth
-            .signInWithPassword({
-              email,
-              password
-            });
-
-
-        if (error) {
-
-          showAuthMessage(
-            error.message,
-            "error"
-          );
-
-          button.disabled = false;
-
-          button.textContent =
-            "Login";
-
-          return;
-
-        }
-
-
-        showAuthMessage(
-          "Login successful!",
-          "success"
-        );
-
-        button.disabled = false;
-
-        button.textContent =
-          "Login";
-
-
-        await updateAuthUI(
-          supabaseClient
-        );
-
-        setTimeout(
-          closeAuthModal,
-          700
-        );
-
-      }
-    );
-
-
-  /* ================= SIGN UP ================= */
-
-  document
-    .getElementById("signupForm")
-    ?.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-        clearAuthMessage();
-
-        const username =
-          document.getElementById(
-            "signupUsername"
-          ).value.trim();
-
-        const fullName =
-          document.getElementById(
-            "signupFullName"
-          ).value.trim();
-
-        const phone =
-          document.getElementById(
-            "signupPhone"
-          ).value.trim();
-
-        const email =
-          document.getElementById(
-            "signupEmail"
-          ).value.trim();
-
-        const password =
-          document.getElementById(
-            "signupPassword"
-          ).value;
-
-
-        const button =
-          document.getElementById(
-            "signupSubmit"
-          );
-
-        button.disabled = true;
-
-        button.textContent =
-          "Creating Account...";
-
-
-        const {
-          data,
-          error
-        } =
-          await supabaseClient.auth
-            .signUp({
-
-              email,
-
-              password,
-
-              options: {
-
-                data: {
-                  username,
-                  full_name: fullName,
-                  phone
-                }
-
-              }
-
-            });
-
-
-        if (error) {
-
-          showAuthMessage(
-            error.message,
-            "error"
-          );
-
-          button.disabled = false;
-
-          button.textContent =
-            "Create Account";
-
-          return;
-
-        }
-
-
-        if (
-          data.session
-        ) {
-
-          showAuthMessage(
-            "Account created successfully!",
-            "success"
-          );
-
-        } else {
-
-          showAuthMessage(
-            "Account created. Please check your email if verification is required.",
-            "success"
-          );
-
-        }
-
-
-        button.disabled = false;
-
-        button.textContent =
-          "Create Account";
-
-
-        await updateAuthUI(
-          supabaseClient
-        );
-
-      }
-    );
-
-
-  /* ================= LOGOUT ================= */
-
-  document
-    .getElementById("logoutBtn")
-    ?.addEventListener(
-      "click",
-      async () => {
-
-        await supabaseClient.auth.signOut();
-
-        await updateAuthUI(
-          supabaseClient
-        );
-
-        showPage("home");
-
-      }
-    );
-
-
-  /* ================= SESSION CHANGES ================= */
-
-  supabaseClient.auth.onAuthStateChange(
-    async () => {
-
-      await updateAuthUI(
-        supabaseClient
-      );
-
     }
-  );
 
+    showAuthMessage("Signing in…");
 
-  /* ================= FIRST LOAD ================= */
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
 
-  await updateAuthUI(
-    supabaseClient
-  );
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
 
+    if (error) {
+      showAuthMessage(error.message, "error");
+    } else {
+      showAuthMessage("Login successful.", "success");
+      setTimeout(closeAuth, 700);
+    }
+  }
+);
 
-  /*
-     Save client globally so later
-     membership/purchase features
-     can use the same connection.
-  */
+document.getElementById("signupForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
 
-  window.myManagerSupabase =
-    supabaseClient;
+    if (!supabaseClient) {
+      return showAuthMessage(
+        "Authentication service could not load. Please refresh and try again.",
+        "error"
+      );
+    }
 
+    showAuthMessage("Creating account…");
 
-  console.log(
-    "Supabase authentication connected."
-  );
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
 
-}
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: name
+        }
+      }
+    });
 
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-setupAuthentication();
-
-
-/* =====================================================
-   DEFAULT PAGE
-===================================================== */
-
-showPage("home");
-
-
-console.log(
-  "My Manager website loaded successfully."
+    if (error) {
+      showAuthMessage(error.message, "error");
+    } else if (data.session) {
+      showAuthMessage("Account created successfully.", "success");
+      setTimeout(closeAuth, 900);
+    } else {
+      showAuthMessage(
+        "Account created. Check your email to confirm your account.",
+        "success"
+      );
+    }
+  }
 );
