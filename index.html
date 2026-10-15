@@ -7,81 +7,98 @@
   <meta name="description" content="My Manager - Your Personal Financial Manager">
   <title>My Manager | Your Personal Financial Manager</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="topbar">
   <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+
   <a class="brand" href="#" data-page="home">
     <img src="my-manager-logo.png" alt="My Manager logo">
-    <span><strong>My Manager</strong><small>Your Personal Financial Manager</small></span>
+    <span>
+      <strong>My Manager</strong>
+      <small>Your Personal Financial Manager.</small>
+    </span>
   </a>
+
   <nav class="top-links">
     <button data-page="home">Home</button>
+    <button data-page="services">Services</button>
     <button data-page="membership">Membership Plans</button>
     <button data-page="about">About Us</button>
     <button data-page="contact">Contact</button>
   </nav>
-  <div class="auth-actions" id="authActions">
-    <button class="login-btn" data-auth="login">Login / Sign Up</button>
+
+  <div class="top-actions" id="authActions">
+    <button class="login-btn" data-auth="login">Login</button>
+    <button class="signup-btn" data-auth="signup">Sign Up</button>
+    <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+      ♧ <span class="notification-count">3</span>
+    </button>
   </div>
 </header>
 
-<div class="layout">
+<div class="layout" id="layout">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <img src="my-manager-logo.png" alt="">
-      <div><strong>My Manager</strong><small>Your Personal Financial Manager</small></div>
+      <img src="my-manager-logo.png" alt="My Manager logo">
+      <div>
+        <strong>My Manager</strong>
+        <small>Your Personal Financial Manager</small>
+      </div>
     </div>
+
     <nav class="side-nav">
-      <button class="side-link active" data-page="home">⌂ <span>Home</span></button>
-      <button class="side-link" data-page="membership">▦ <span>Membership Plans</span></button>
-      <button class="side-link" data-page="about">◉ <span>About Us</span></button>
-      <button class="side-link" data-page="documents">▤ <span>Documents</span></button>
-      <button class="side-link" data-page="contact">♙ <span>Contact & Support</span></button>
+      <button class="side-link active" data-page="home"><span class="side-icon">⌂</span><span>Home</span></button>
+      <button class="side-link" data-page="services"><span class="side-icon">▦</span><span>Services</span></button>
+      <button class="side-link" data-page="about"><span class="side-icon">◉</span><span>My Manager</span></button>
+      <button class="side-link" data-page="documents"><span class="side-icon">▤</span><span>Documents</span></button>
+      <button class="side-link" data-page="profile"><span class="side-icon">♟</span><span>Profile</span></button>
     </nav>
+
     <div class="sidebar-contact">
-      <b>Need assistance?</b>
+      <strong>Need assistance?</strong>
       <a href="mailto:supportmy1manager@gmail.com">supportmy1manager@gmail.com</a>
       <a href="tel:+919649950866">+91 96499 50866</a>
     </div>
   </aside>
 
   <main class="main-content">
+
+    <!-- HOME -->
     <section class="page active" id="page-home">
       <div class="hero">
         <div class="hero-copy">
-          <span class="eyebrow">ONE APP. EVERY LIFE. EVERY NEED.</span>
+          <span class="eyebrow">WELCOME TO</span>
           <h1>My Manager</h1>
           <h2>Your Personal Financial Manager</h2>
-          <p>Personal, business and family assistance — all in one place.</p>
+          <p>One app. Every life. Every need.</p>
           <div class="hero-points">
-            <span>🟢 Save Time</span><span>🔵 Save Money</span>
-            <span>🟠 Reduce Stress</span><span>🟣 Support Your Family</span>
+            <span>🟢 Save Time</span>
+            <span>🔵 Save Money</span>
+            <span>🟠 Reduce Stress</span>
+            <span>🟣 Support Your Family</span>
           </div>
           <button class="primary-btn" data-page="membership">Explore Membership Plans →</button>
         </div>
-        <div class="hero-image">
-          <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1000&q=80" alt="Family">
-        </div>
-        <div class="hero-note">Financial Support<br>for Your Entire Family</div>
+        <div class="hero-symbol" aria-hidden="true">♛</div>
       </div>
 
       <div class="benefit-row">
-        <div>🔵 <b>Expert Guidance</b></div>
-        <div>🟢 <b>Trusted Support</b></div>
-        <div>🟠 <b>Digital & Secure</b></div>
-        <div>🟣 <b>Complete Assistance</b></div>
+        <div><span>🔵</span><b>Expert Guidance</b></div>
+        <div><span>🟢</span><b>Trusted Support</b></div>
+        <div><span>🟠</span><b>Digital & Secure</b></div>
+        <div><span>🟣</span><b>Complete Assistance</b></div>
       </div>
 
       <div class="section-heading">
         <div>
           <h2>Choose Your Membership Plan</h2>
-          <p>Flexible plans for every need — business, professional or student.</p>
+          <p>Flexible plans for every need — Business, Professional or Student.</p>
         </div>
-        <button class="text-button" data-page="membership">View all plans →</button>
+        <button class="text-button" data-page="membership">View All →</button>
       </div>
 
       <div class="plans-grid">
@@ -92,7 +109,7 @@
           <span class="plan-title">Elite</span>
           <span class="plan-for">For Business Owners, Entrepreneurs & Families</span>
           <strong>₹24,999 <small>/ 5 Years</small></strong>
-          <span class="plan-includes">✓ Business & Personal Banking Assistance<br>✓ Family Financial Support<br>✓ Loan Guidance & Coordination<br>✓ Insurance & Claim Assistance<br>✓ ITR & Tax Coordination<br>✓ Dedicated Relationship Manager</span>
+          <span class="plan-includes">✓ Business & Personal Banking<br>✓ Family Financial Support<br>✓ Loan Guidance<br>✓ Insurance & Claim Assistance<br>✓ ITR & Tax Coordination<br>✓ Dedicated Relationship Manager</span>
           <span class="join-label">Join Elite Plan →</span>
         </button>
 
@@ -102,17 +119,17 @@
           <span class="plan-title">Professional</span>
           <span class="plan-for">For Working Professionals & Salaried Individuals</span>
           <strong>₹6,370 <small>/ Year</small></strong>
-          <span class="plan-includes">✓ Personal Banking Assistance<br>✓ Loan Guidance & Coordination<br>✓ Insurance & Claim Assistance<br>✓ ITR & Tax Advisory<br>✓ Document Vault<br>✓ Dedicated Support</span>
+          <span class="plan-includes">✓ Personal Banking Assistance<br>✓ Loan Guidance<br>✓ Insurance & Claim Assistance<br>✓ ITR & Tax Advisory<br>✓ Document Vault<br>✓ Dedicated Support</span>
           <span class="join-label">Join Professional Plan →</span>
         </button>
 
         <button class="plan-card student" data-plan="student">
-          <span class="plan-icon">🎓</span>
+          <span class="plan-icon">◆</span>
           <span class="plan-brand">My Manager</span>
           <span class="plan-title">Student</span>
           <span class="plan-for">For Students</span>
           <strong>₹299 <small>/ Year</small></strong>
-          <span class="plan-includes">✓ Student Banking Assistance<br>✓ Education Loan Guidance<br>✓ Scholarship & Financial Guidance<br>✓ Basic Insurance Awareness<br>✓ Document Support<br>✓ Financial Literacy & Money Management</span>
+          <span class="plan-includes">✓ Student Banking Assistance<br>✓ Education Loan Guidance<br>✓ Scholarship Guidance<br>✓ Basic Insurance Awareness<br>✓ Document Support<br>✓ Financial Literacy</span>
           <span class="join-label">Join Student Plan →</span>
         </button>
       </div>
@@ -122,21 +139,40 @@
         <div><span>💰</span><b>Loan Guidance</b><small>Personal and business</small></div>
         <div><span>🛡️</span><b>Insurance Support</b><small>Health, life and motor</small></div>
         <div><span>📄</span><b>Document Vault</b><small>KYC and renewals</small></div>
-        <div><span>🎧</span><b>Dedicated Support</b><small>Help when you need it</small></div>
       </div>
 
       <div class="how-section">
         <h2>How It Works</h2>
         <div class="steps">
           <div><span>1</span><b>Register</b><small>Create your account</small></div>
-          <div><span>2</span><b>Choose Your Plan</b><small>Select the right membership</small></div>
-          <div><span>3</span><b>Make Enquiry</b><small>Connect with our team</small></div>
-          <div><span>4</span><b>Get Assistance</b><small>Start using support services</small></div>
+          <div><span>2</span><b>Choose Your Plan</b><small>Select membership</small></div>
+          <div><span>3</span><b>Make Enquiry</b><small>Contact our team</small></div>
+          <div><span>4</span><b>Get Assistance</b><small>Access support services</small></div>
         </div>
-        <a class="whatsapp-btn" href="https://wa.me/919649950866?text=Hello%20My%20Manager%2C%20I%20would%20like%20to%20know%20more." target="_blank" rel="noopener">WhatsApp: Talk to My Manager →</a>
+        <a class="whatsapp-btn" href="https://wa.me/919649950866?text=Hello%20My%20Manager%2C%20I%20need%20assistance." target="_blank" rel="noopener">Talk to My Manager →</a>
       </div>
     </section>
 
+    <!-- SERVICES -->
+    <section class="page" id="page-services">
+      <button class="back-button" data-page="home">← Back to Home</button>
+      <div class="page-title">
+        <span class="eyebrow">WHAT WE OFFER</span>
+        <h1>Our Services</h1>
+        <p>Explore the assistance available through My Manager.</p>
+      </div>
+      <div class="service-page-grid">
+        <article><span>🏦</span><h3>Banking Assistance</h3><p>Guidance related to accounts, banking services and deposits.</p></article>
+        <article><span>💰</span><h3>Loan Guidance</h3><p>Assistance understanding loan options and application processes.</p></article>
+        <article><span>🛡️</span><h3>Insurance Support</h3><p>Help understanding insurance documentation and claim processes.</p></article>
+        <article><span>📄</span><h3>Document Support</h3><p>Guidance for KYC, document organization and renewals.</p></article>
+        <article><span>📊</span><h3>Tax Coordination</h3><p>General assistance coordinating tax-related documentation.</p></article>
+        <article><span>🎧</span><h3>Personal Support</h3><p>Connect with our team for membership and service enquiries.</p></article>
+      </div>
+      <a class="primary-btn" href="https://wa.me/919649950866" target="_blank" rel="noopener">Ask About Services →</a>
+    </section>
+
+    <!-- MEMBERSHIP -->
     <section class="page" id="page-membership">
       <button class="back-button" data-page="home">← Back to Home</button>
       <div class="page-title">
@@ -144,34 +180,45 @@
         <h1>Membership Plans</h1>
         <p>Choose the membership that fits your needs.</p>
       </div>
-      <div class="membership-list">
-        <button class="membership-row" data-plan="elite">
-          <span class="row-icon elite-bg">♛</span>
-          <span><b>Elite</b><small>For Business Owners, Entrepreneurs & Families</small><strong>₹24,999 / 5 Years</strong></span>
-          <span class="arrow">›</span>
+      <div class="plans-grid membership-grid">
+        <button class="plan-card elite" data-plan="elite">
+          <span class="plan-icon">♛</span><span class="plan-brand">My Manager</span>
+          <span class="plan-title">Elite</span><span class="plan-for">Business Owners & Families</span>
+          <strong>₹24,999 <small>/ 5 Years</small></strong>
+          <span class="plan-includes">✓ Banking Assistance<br>✓ Family Financial Support<br>✓ Loan Guidance<br>✓ Insurance Support<br>✓ Tax Coordination</span>
+          <span class="join-label">View Plan →</span>
         </button>
-        <button class="membership-row" data-plan="professional">
-          <span class="row-icon pro-bg">▣</span>
-          <span><b>Professional</b><small>For Working Professionals & Salaried Individuals</small><strong>₹6,370 / Year</strong></span>
-          <span class="arrow">›</span>
+        <button class="plan-card professional" data-plan="professional">
+          <span class="plan-icon">▣</span><span class="plan-brand">My Manager</span>
+          <span class="plan-title">Professional</span><span class="plan-for">Working Professionals</span>
+          <strong>₹6,370 <small>/ Year</small></strong>
+          <span class="plan-includes">✓ Banking Assistance<br>✓ Loan Guidance<br>✓ Insurance Support<br>✓ Tax Advisory<br>✓ Document Vault</span>
+          <span class="join-label">View Plan →</span>
         </button>
-        <button class="membership-row" data-plan="student">
-          <span class="row-icon student-bg">🎓</span>
-          <span><b>Student</b><small>For Students</small><strong>₹299 / Year</strong></span>
-          <span class="arrow">›</span>
+        <button class="plan-card student" data-plan="student">
+          <span class="plan-icon">◆</span><span class="plan-brand">My Manager</span>
+          <span class="plan-title">Student</span><span class="plan-for">For Students</span>
+          <strong>₹299 <small>/ Year</small></strong>
+          <span class="plan-includes">✓ Student Banking<br>✓ Education Loan Guidance<br>✓ Scholarship Guidance<br>✓ Document Support<br>✓ Financial Literacy</span>
+          <span class="join-label">View Plan →</span>
         </button>
       </div>
     </section>
 
+    <!-- PLAN DETAILS -->
     <section class="page" id="page-details">
       <button class="back-button" data-page="membership">← Membership Plans</button>
       <div class="detail-hero" id="detailHero">
         <div class="detail-icon" id="detailIcon">♛</div>
-        <div><span class="eyebrow" id="detailFor">FOR BUSINESS OWNERS</span><h1 id="detailTitle">Elite</h1><strong id="detailPrice">₹24,999 / 5 Years</strong></div>
+        <div>
+          <span class="eyebrow" id="detailFor">MEMBERSHIP PLAN</span>
+          <h1 id="detailTitle">Elite</h1>
+          <strong id="detailPrice">₹24,999 / 5 Years</strong>
+        </div>
       </div>
       <div class="detail-card">
         <h2>Services Included</h2>
-        <p id="detailSubtitle">Complete support and coordination services.</p>
+        <p id="detailSubtitle">Explore services included in this membership.</p>
         <div class="service-grid" id="serviceGrid"></div>
         <div class="detail-actions">
           <a class="primary-btn" id="buyPlanBtn" href="https://wa.me/919649950866" target="_blank" rel="noopener">Enquire on WhatsApp →</a>
@@ -180,14 +227,19 @@
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section class="page" id="page-about">
       <button class="back-button" data-page="home">← Back</button>
-      <div class="page-title"><span class="eyebrow">ABOUT US</span><h1>About My Manager</h1><p>One platform for coordinated personal, financial and business assistance.</p></div>
+      <div class="page-title">
+        <span class="eyebrow">ABOUT US</span>
+        <h1>My Manager</h1>
+        <p>Your Personal Financial Manager.</p>
+      </div>
       <div class="about-card">
         <img src="my-manager-logo.png" alt="My Manager logo">
         <div>
-          <h2>Managed by Mr. Jatin Mishra</h2>
-          <p>My Manager helps customers explore membership plans, understand support services and connect with a dedicated point of contact for assistance and service coordination.</p>
+          <h2>One App. Every Life. Every Need.</h2>
+          <p>My Manager helps customers explore membership plans, understand available support services and connect with our team for service coordination.</p>
           <div class="contact-actions">
             <a href="tel:+919649950866">📞 +91 96499 50866</a>
             <a href="mailto:supportmy1manager@gmail.com">✉ supportmy1manager@gmail.com</a>
@@ -197,15 +249,46 @@
       </div>
     </section>
 
+    <!-- DOCUMENTS -->
     <section class="page" id="page-documents">
       <button class="back-button" data-page="home">← Back</button>
-      <div class="page-title"><span class="eyebrow">DOCUMENTS</span><h1>Document Vault</h1><p>A future-ready space for organizing service documents.</p></div>
-      <div class="empty-card"><div>📄</div><h2>Document Vault</h2><p>This section is a front-end demo. Secure document storage requires a connected backend.</p></div>
+      <div class="page-title">
+        <span class="eyebrow">DOCUMENTS</span>
+        <h1>Document Vault</h1>
+        <p>Information about document assistance.</p>
+      </div>
+      <div class="empty-card">
+        <div>📄</div>
+        <h2>Your Documents</h2>
+        <p>Document storage and uploads require a secure backend. This page does not upload or store private documents.</p>
+      </div>
     </section>
 
+    <!-- PROFILE -->
+    <section class="page" id="page-profile">
+      <button class="back-button" data-page="home">← Back</button>
+      <div class="page-title">
+        <span class="eyebrow">YOUR ACCOUNT</span>
+        <h1>My Profile</h1>
+        <p>View your account status and sign-in options.</p>
+      </div>
+      <div class="contact-card profile-card">
+        <div class="profile-avatar">♟</div>
+        <h2 id="profileName">Welcome to My Manager</h2>
+        <p id="profileEmail">Sign in to view your account information.</p>
+        <button class="primary-btn" data-auth="login">Login / Sign Up</button>
+        <button class="secondary-btn" id="profileLogout" hidden>Logout</button>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
     <section class="page" id="page-contact">
       <button class="back-button" data-page="home">← Back</button>
-      <div class="page-title"><span class="eyebrow">CONTACT & SUPPORT</span><h1>Talk to My Manager</h1><p>Connect directly with our team for membership enquiries.</p></div>
+      <div class="page-title">
+        <span class="eyebrow">CONTACT & SUPPORT</span>
+        <h1>Talk to My Manager</h1>
+        <p>Contact us for membership and service enquiries.</p>
+      </div>
       <div class="contact-card">
         <h2>We're here to help</h2>
         <a href="tel:+919649950866">📞 +91 96499 50866</a>
@@ -215,35 +298,47 @@
     </section>
 
     <footer class="footer">
-      <div>© 2026 My Manager — Your Personal Financial Manager</div>
-      <div><a href="#" data-page="about">About Us</a> · <a href="#" data-page="contact">Contact</a></div>
+      <span>© 2026 My Manager — Your Personal Financial Manager</span>
+      <span><a href="#" data-page="about">About Us</a> · <a href="#" data-page="contact">Contact</a></span>
     </footer>
   </main>
 </div>
 
+<!-- LOGIN / SIGN UP -->
 <div class="auth-modal" id="authModal" aria-hidden="true">
   <div class="auth-box">
     <button class="auth-close" id="authClose" aria-label="Close">×</button>
     <img class="auth-logo" src="my-manager-logo.png" alt="My Manager">
     <h2 id="authTitle">Welcome Back</h2>
     <p class="auth-subtitle">Sign in or create your My Manager account.</p>
+
     <div class="auth-tabs">
       <button class="auth-tab active" data-auth-tab="login">Login</button>
       <button class="auth-tab" data-auth-tab="signup">Sign Up</button>
     </div>
+
     <form id="loginForm" class="auth-form active">
       <label>Email<input type="email" id="loginEmail" required autocomplete="email"></label>
       <label>Password<input type="password" id="loginPassword" required autocomplete="current-password"></label>
       <button class="primary-btn" type="submit">Login</button>
     </form>
+
     <form id="signupForm" class="auth-form">
       <label>Full Name<input type="text" id="signupName" required autocomplete="name"></label>
       <label>Email<input type="email" id="signupEmail" required autocomplete="email"></label>
       <label>Password<input type="password" id="signupPassword" required minlength="6" autocomplete="new-password"></label>
       <button class="primary-btn" type="submit">Create Account</button>
     </form>
+
     <p id="authMessage" class="auth-message" role="status"></p>
   </div>
+</div>
+
+<div class="notification-panel" id="notificationPanel" hidden>
+  <strong>Notifications</strong>
+  <p>Welcome to My Manager.</p>
+  <p>Explore our three membership plans.</p>
+  <p>Contact our team for assistance.</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
