@@ -1,5 +1,5 @@
 
-/* My Manager - navigation, membership plans and Supabase authentication */
+/* My Manager - Website JavaScript */
 
 const SUPABASE_URL = "https://wdkgquixyujuorhhwvcp.supabase.co";
 const SUPABASE_KEY = "sb_publishable_ZvDmSbOy_FqqSblJNVyObw_shXMgJ7U";
@@ -9,14 +9,14 @@ const supabaseClient = window.supabase?.createClient(
   SUPABASE_KEY
 );
 
-const planData = {
+const plans = {
   elite: {
     name: "Elite",
-    forText: "FOR BUSINESS OWNERS, ENTREPRENEURS & FAMILIES",
     price: "₹24,999 / 5 Years",
     icon: "♛",
-    theme: "elite",
-    subtitle: "Premium business, personal and family assistance.",
+    theme: "elite-theme",
+    audience: "FOR BUSINESS OWNERS, ENTREPRENEURS & FAMILIES",
+    description: "Premium business, personal and family assistance.",
     services: [
       "Business & Personal Banking Assistance",
       "Family Financial Support",
@@ -33,11 +33,11 @@ const planData = {
 
   professional: {
     name: "Professional",
-    forText: "FOR WORKING PROFESSIONALS & SALARIED INDIVIDUALS",
     price: "₹6,370 / Year",
     icon: "▣",
-    theme: "professional",
-    subtitle: "Personal financial assistance for working professionals.",
+    theme: "professional-theme",
+    audience: "FOR WORKING PROFESSIONALS & SALARIED INDIVIDUALS",
+    description: "Financial assistance for working professionals.",
     services: [
       "Personal Banking Assistance",
       "Loan Guidance & Coordination",
@@ -52,11 +52,11 @@ const planData = {
 
   student: {
     name: "Student",
-    forText: "FOR STUDENTS",
     price: "₹299 / Year",
-    icon: "🎓",
-    theme: "student",
-    subtitle: "Affordable guidance for students.",
+    icon: "◆",
+    theme: "student-theme",
+    audience: "FOR STUDENTS",
+    description: "Affordable financial guidance for students.",
     services: [
       "Student Banking Assistance",
       "Education Loan Guidance",
@@ -70,65 +70,84 @@ const planData = {
   }
 };
 
+/* Page navigation */
+
 const pages = document.querySelectorAll(".page");
 const sidebar = document.getElementById("sidebar");
-const layout = document.querySelector(".layout");
+const layout = document.getElementById("layout");
 
-function showPage(name) {
+function showPage(pageName) {
+  const target = document.getElementById(`page-${pageName}`);
+
+  if (!target) return;
+
   pages.forEach(page => {
-    page.classList.toggle("active", page.id === `page-${name}`);
+    page.classList.toggle("active", page === target);
   });
 
-  document.querySelectorAll("[data-page]").forEach(control => {
-    control.classList.toggle("active", control.dataset.page === name);
+  document.querySelectorAll(".side-link").forEach(link => {
+    link.classList.toggle(
+      "active",
+      link.dataset.page === pageName
+    );
   });
 
-  sidebar?.classList.remove("mobile-open");
+  sidebar.classList.remove("mobile-open");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-document.querySelectorAll("[data-page]").forEach(control => {
-  control.addEventListener("click", event => {
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", event => {
     event.preventDefault();
-
-    if (control.dataset.page) {
-      showPage(control.dataset.page);
-    }
+    showPage(button.dataset.page);
   });
 });
 
-document.getElementById("menuBtn")?.addEventListener("click", () => {
-  if (window.innerWidth <= 760) {
-    sidebar?.classList.toggle("mobile-open");
+/* Desktop sidebar toggle and mobile menu */
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+  if (window.innerWidth <= 600) {
+    sidebar.classList.toggle("mobile-open");
   } else {
-    layout?.classList.toggle("sidebar-hidden");
+    layout.classList.toggle("sidebar-hidden");
   }
 });
 
-function openPlan(key) {
-  const plan = planData[key];
+/* Membership details */
+
+function openPlan(planKey) {
+  const plan = plans[planKey];
 
   if (!plan) return;
 
   document.getElementById("detailTitle").textContent = plan.name;
-  document.getElementById("detailFor").textContent = plan.forText;
   document.getElementById("detailPrice").textContent = plan.price;
   document.getElementById("detailIcon").textContent = plan.icon;
-  document.getElementById("detailSubtitle").textContent = plan.subtitle;
+  document.getElementById("detailFor").textContent = plan.audience;
+  document.getElementById("detailSubtitle").textContent = plan.description;
 
   document.getElementById("detailHero").className =
-    `detail-hero ${plan.theme}-theme`;
+    `detail-hero ${plan.theme}`;
 
-  document.getElementById("serviceGrid").innerHTML =
-    plan.services.map(service => `
-      <div class="service-item">
-        <span>✓</span>
-        <div>${service}</div>
-      </div>
-    `).join("");
+  const serviceGrid = document.getElementById("serviceGrid");
+  serviceGrid.replaceChildren();
+
+  plan.services.forEach(service => {
+    const item = document.createElement("div");
+    item.className = "service-item";
+
+    const tick = document.createElement("span");
+    tick.textContent = "✓";
+
+    const label = document.createElement("div");
+    label.textContent = service;
+
+    item.append(tick, label);
+    serviceGrid.appendChild(item);
+  });
 
   const message = encodeURIComponent(
-    `Hello My Manager, I am interested in the ${plan.name} Plan (${plan.price}). Please share the membership procedure, payment details and next steps. Thank you.`
+    `Hello My Manager, I am interested in the ${plan.name} Plan (${plan.price}). Please share the membership procedure and next steps.`
   );
 
   document.getElementById("buyPlanBtn").href =
@@ -137,32 +156,23 @@ function openPlan(key) {
   showPage("details");
 }
 
-document.querySelectorAll("[data-plan]").forEach(control => {
-  control.addEventListener("click", () => {
-    openPlan(control.dataset.plan);
+document.querySelectorAll("[data-plan]").forEach(button => {
+  button.addEventListener("click", () => {
+    openPlan(button.dataset.plan);
   });
 });
 
-/* Authentication modal */
+/* Login and Sign Up modal */
 
 const authModal = document.getElementById("authModal");
 const authMessage = document.getElementById("authMessage");
 
-function openAuth(tab = "login") {
-  authModal.classList.add("show");
-  authModal.setAttribute("aria-hidden", "false");
-  setAuthTab(tab);
-}
-
-function closeAuth() {
-  authModal.classList.remove("show");
-  authModal.setAttribute("aria-hidden", "true");
-  authMessage.textContent = "";
-}
-
 function setAuthTab(tab) {
   document.querySelectorAll("[data-auth-tab]").forEach(button => {
-    button.classList.toggle("active", button.dataset.authTab === tab);
+    button.classList.toggle(
+      "active",
+      button.dataset.authTab === tab
+    );
   });
 
   document.getElementById("loginForm").classList.toggle(
@@ -179,10 +189,25 @@ function setAuthTab(tab) {
     tab === "login" ? "Welcome Back" : "Create Your Account";
 
   authMessage.textContent = "";
+  authMessage.className = "auth-message";
 }
 
-document.querySelectorAll("[data-auth='login']").forEach(button => {
-  button.addEventListener("click", () => openAuth("login"));
+function openAuth(tab = "login") {
+  authModal.classList.add("show");
+  authModal.setAttribute("aria-hidden", "false");
+  setAuthTab(tab);
+}
+
+function closeAuth() {
+  authModal.classList.remove("show");
+  authModal.setAttribute("aria-hidden", "true");
+  authMessage.textContent = "";
+}
+
+document.querySelectorAll("[data-auth]").forEach(button => {
+  button.addEventListener("click", () => {
+    openAuth(button.dataset.auth);
+  });
 });
 
 document.querySelectorAll("[data-auth-tab]").forEach(button => {
@@ -191,7 +216,10 @@ document.querySelectorAll("[data-auth-tab]").forEach(button => {
   });
 });
 
-document.getElementById("authClose").addEventListener("click", closeAuth);
+document.getElementById("authClose").addEventListener(
+  "click",
+  closeAuth
+);
 
 authModal.addEventListener("click", event => {
   if (event.target === authModal) closeAuth();
@@ -201,65 +229,119 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") closeAuth();
 });
 
-function showAuthMessage(message, type = "") {
+function authStatus(message, type = "") {
   authMessage.textContent = message;
   authMessage.className = `auth-message ${type}`;
 }
 
-function setAuthButton(user) {
-  const container = document.getElementById("authActions");
+/* Account display */
 
-  if (!container) return;
+function updateProfile(user) {
+  const name = document.getElementById("profileName");
+  const email = document.getElementById("profileEmail");
+  const logout = document.getElementById("profileLogout");
 
   if (user) {
-    const label = user.user_metadata?.full_name || user.email || "Account";
+    name.textContent =
+      user.user_metadata?.full_name || "My Manager Member";
 
-    const name = document.createElement("span");
-    name.className = "signed-in-label";
-    name.textContent = label;
-    name.title = label;
-
-    const logoutButton = document.createElement("button");
-    logoutButton.className = "login-btn";
-    logoutButton.id = "logoutBtn";
-    logoutButton.textContent = "Logout";
-
-    container.replaceChildren(name, logoutButton);
-
-    logoutButton.addEventListener("click", async () => {
-      if (!supabaseClient) return;
-
-      const { error } = await supabaseClient.auth.signOut();
-
-      if (error) {
-        alert(error.message);
-      } else {
-        setAuthButton(null);
-      }
-    });
+    email.textContent = user.email || "";
+    logout.hidden = false;
   } else {
-    container.innerHTML =
-      '<button class="login-btn" data-auth="login">Login / Sign Up</button>';
-
-    container.querySelector("[data-auth]").addEventListener("click", () => {
-      openAuth("login");
-    });
+    name.textContent = "Welcome to My Manager";
+    email.textContent = "Sign in to view your account information.";
+    logout.hidden = true;
   }
 }
 
+function updateAuthButtons(user) {
+  const container = document.getElementById("authActions");
+
+  container.replaceChildren();
+
+  if (!user) {
+    const login = document.createElement("button");
+    login.className = "login-btn";
+    login.textContent = "Login";
+    login.addEventListener("click", () => openAuth("login"));
+
+    const signup = document.createElement("button");
+    signup.className = "signup-btn";
+    signup.textContent = "Sign Up";
+    signup.addEventListener("click", () => openAuth("signup"));
+
+    const notification = document.createElement("button");
+    notification.className = "notification-btn";
+    notification.id = "notificationBtn";
+    notification.setAttribute("aria-label", "Notifications");
+    notification.textContent = "♧";
+
+    const count = document.createElement("span");
+    count.className = "notification-count";
+    count.textContent = "3";
+    notification.appendChild(count);
+
+    container.append(login, signup, notification);
+  } else {
+    const label = document.createElement("span");
+    label.className = "signed-in-label";
+    label.textContent = user.user_metadata?.full_name || user.email;
+
+    const logout = document.createElement("button");
+    logout.className = "login-btn";
+    logout.textContent = "Logout";
+    logout.addEventListener("click", signOut);
+
+    container.append(label, logout);
+  }
+}
+
+async function signOut() {
+  if (!supabaseClient) {
+    alert("Authentication service is unavailable.");
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+  } else {
+    updateProfile(null);
+    updateAuthButtons(null);
+    showPage("home");
+  }
+}
+
+document.getElementById("profileLogout").addEventListener(
+  "click",
+  signOut
+);
+
+/* Supabase session */
+
 if (supabaseClient) {
-  supabaseClient.auth.getSession().then(({ data }) => {
-    setAuthButton(data.session?.user || null);
+  supabaseClient.auth.getSession().then(({ data, error }) => {
+    if (error) {
+      console.error("Could not retrieve session:", error.message);
+      return;
+    }
+
+    const user = data.session?.user || null;
+    updateProfile(user);
+    updateAuthButtons(user);
   });
 
   supabaseClient.auth.onAuthStateChange((_event, session) => {
-    setAuthButton(session?.user || null);
+    const user = session?.user || null;
+    updateProfile(user);
+    updateAuthButtons(user);
   });
 } else {
-  console.warn(
-    "Supabase did not load. Authentication is currently unavailable."
-  );
+  console.warn("Supabase is unavailable. Login and signup cannot work until it loads.");
 }
+
+/* Login form */
 
 document.getElementById("loginForm").addEventListener(
   "submit",
@@ -267,16 +349,14 @@ document.getElementById("loginForm").addEventListener(
     event.preventDefault();
 
     if (!supabaseClient) {
-      return showAuthMessage(
-        "Authentication service could not load. Please refresh and try again.",
-        "error"
-      );
+      authStatus("Authentication service unavailable. Please refresh.", "error");
+      return;
     }
-
-    showAuthMessage("Signing in…");
 
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
+
+    authStatus("Signing in...");
 
     const { error } = await supabaseClient.auth.signInWithPassword({
       email,
@@ -284,13 +364,15 @@ document.getElementById("loginForm").addEventListener(
     });
 
     if (error) {
-      showAuthMessage(error.message, "error");
+      authStatus(error.message, "error");
     } else {
-      showAuthMessage("Login successful.", "success");
+      authStatus("Login successful.", "success");
       setTimeout(closeAuth, 700);
     }
   }
 );
+
+/* Signup form */
 
 document.getElementById("signupForm").addEventListener(
   "submit",
@@ -298,38 +380,60 @@ document.getElementById("signupForm").addEventListener(
     event.preventDefault();
 
     if (!supabaseClient) {
-      return showAuthMessage(
-        "Authentication service could not load. Please refresh and try again.",
-        "error"
-      );
+      authStatus("Authentication service unavailable. Please refresh.", "error");
+      return;
     }
-
-    showAuthMessage("Creating account…");
 
     const name = document.getElementById("signupName").value.trim();
     const email = document.getElementById("signupEmail").value.trim();
     const password = document.getElementById("signupPassword").value;
 
+    authStatus("Creating account...");
+
     const { data, error } = await supabaseClient.auth.signUp({
       email,
       password,
       options: {
-        data: {
-          full_name: name
-        }
+        data: { full_name: name }
       }
     });
 
     if (error) {
-      showAuthMessage(error.message, "error");
+      authStatus(error.message, "error");
     } else if (data.session) {
-      showAuthMessage("Account created successfully.", "success");
+      authStatus("Account created successfully.", "success");
       setTimeout(closeAuth, 900);
     } else {
-      showAuthMessage(
+      authStatus(
         "Account created. Check your email to confirm your account.",
         "success"
       );
     }
   }
 );
+
+/* Notification dropdown */
+
+function toggleNotifications() {
+  const panel = document.getElementById("notificationPanel");
+  panel.hidden = !panel.hidden;
+}
+
+document.getElementById("notificationBtn")?.addEventListener(
+  "click",
+  toggleNotifications
+);
+
+document.addEventListener("click", event => {
+  const panel = document.getElementById("notificationPanel");
+  const bell = document.getElementById("notificationBtn");
+
+  if (
+    panel &&
+    !panel.hidden &&
+    !panel.contains(event.target) &&
+    !bell?.contains(event.target)
+  ) {
+    panel.hidden = true;
+  }
+});
